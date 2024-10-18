@@ -219,8 +219,8 @@ class CryptoBot:
         start_url = 'https://game-domain.blum.codes/api/v2/game/play'
         finish_url = 'https://game-domain.blum.codes/api/v2/game/claim'
 
-        if games > 4:
-            games = 4  # play a maximum of 4 games in a row
+        if games > 7:
+            games = 7  # play a maximum of 7 games in a row
         while games > 0:
             try:
                 await self.http_client.options(start_url)
