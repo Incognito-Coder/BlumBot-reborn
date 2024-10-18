@@ -2,6 +2,8 @@
 
 ![img1](.github/images/demo.png)
 
+> **ОБНОВЛЕНО ДО ВЕРСИИ BLUM API 2**
+
 > 🇺🇸 README in english available [here](README.md)
 
 ## Функционал
@@ -16,7 +18,7 @@
 | Автоматические игры                                            |        ✅       |
 | Docker                                                         |        ✅       |
 
-## [Настройки](https://github.com/Alexell/BlumBot/blob/main/.env-example)
+## [Настройки](https://github.com/Incognito-Coder/BlumBot-reborn/blob/main/.env-example)
 | Опция                   | Описание                                                                   |
 |-------------------------|----------------------------------------------------------------------------|
 | **API_ID / API_HASH**   | Данные платформы для запуска сессии Telegram (по умолчанию: Android)       |
@@ -36,14 +38,14 @@
 3. Используйте `START.bat` для запуска бота (или в консоли: `python main.py`)
 
 ### Linux
-1. Клонируйте репозиторий: `git clone https://github.com/Alexell/BlumBot.git && cd BlumBot`
+1. Клонируйте репозиторий: `git clone https://github.com/Incognito-Coder/BlumBot-reborn.git && cd BlumBot-reborn`
 2. Выполните установку: `chmod +x INSTALL.sh START.sh && ./INSTALL.sh`, затем укажите ваши API_ID и API_HASH в .env
 3. Используйте `./START.sh` для запуска бота (или в консоли: `python3 main.py`)
 
 ## Запуск в Docker
 ```
-$ git clone https://github.com/Alexell/BlumBot.git
-$ cd BlumBot
+$ git clone https://github.com/Incognito-Coder/BlumBot-reborn.git
+$ cd BlumBot-reborn
 $ cp .env-example .env
 $ nano .env # укажите ваши API_ID и API_HASH, остальное можно оставить по умолчанию
 ```
@@ -61,10 +63,10 @@ $ docker run -d --restart unless-stopped --name BlumBot -v .:/app blum_bot # з�
 ```
 
 ## Ручная установка
-Вы можете скачать [**Репозиторий**](https://github.com/Alexell/BlumBot) клонированием на вашу систему и установкой необходимых зависимостей:
+Вы можете скачать [**Репозиторий**](https://github.com/Incognito-Coder/BlumBot-reborn) клонированием на вашу систему и установкой необходимых зависимостей:
 ```
-$ git clone https://github.com/Alexell/BlumBot.git
-$ cd BlumBot
+$ git clone https://github.com/Incognito-Coder/BlumBot-reborn.git
+$ cd BlumBot-reborn
 
 # Linux
 $ python3 -m venv venv
@@ -95,7 +97,7 @@ $ python3 main.py -a (1/2)
 
 ## Запуск  бота в фоновом режиме (Linux)
 ```
-$ cd BlumBot
+$ cd BlumBot-reborn
 
 # с логированием
 $ setsid venv/bin/python3 main.py --action 2 >> app.log 2>&1 &

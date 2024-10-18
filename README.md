@@ -2,6 +2,8 @@
 
 ![img1](.github/images/demo.png)
 
+> **UPDATED TO BLUM API VERSION 2**
+
 > 🇷🇺 README на русском доступен [здесь](README-RU.md)
 
 ## Functionality
@@ -16,7 +18,7 @@
 | Automatic games                                                |     ✅     |
 | Docker                                                         |     ✅     |
 
-## [Options](https://github.com/Alexell/BlumBot/blob/main/.env-example)
+## [Options](https://github.com/Incognito-Coder/BlumBot-reborn/blob/main/.env-example)
 | Option                  | Description                                                                |
 |-------------------------|----------------------------------------------------------------------------|
 | **API_ID / API_HASH**   | Platform data for launching a Telegram session (default: Android)          |
@@ -36,14 +38,14 @@ You can obtain the **API_ID** and **API_HASH** after creating an application at 
 3. Use `START.bat` to launch the bot (or in the console: `python main.py`).
 
 ### Linux
-1. Clone the repository: `git clone https://github.com/Alexell/BlumBot.git && cd BlumBot`
+1. Clone the repository: `git clone https://github.com/Incognito-Coder/BlumBot-reborn.git && cd BlumBot-reborn`
 2. Run the installation: `chmod +x INSTALL.sh START.sh && ./INSTALL.sh`, then specify your API_ID and API_HASH in the .env file.
 3. Use `./START.sh` to run the bot (or in the console: `python3 main.py`).
 
 ## Running in Docker
 ```
-$ git clone https://github.com/Alexell/BlumBot.git
-$ cd BlumBot
+$ git clone https://github.com/Incognito-Coder/BlumBot-reborn.git
+$ cd BlumBot-reborn
 $ cp .env-example .env
 $ nano .env # specify your API_ID and API_HASH, the rest can be left as default
 ```
@@ -61,10 +63,10 @@ $ docker run -d --restart unless-stopped --name BlumBot -v .:/app blum_bot # sta
 ```
 
 ## Manual installation
-You can download [**Repository**](https://github.com/Alexell/BlumBot) by cloning it to your system and installing the necessary dependencies:
+You can download [**Repository**](https://github.com/Incognito-Coder/BlumBot-reborn) by cloning it to your system and installing the necessary dependencies:
 ```
-$ git clone https://github.com/Alexell/BlumBot.git
-$ cd BlumBot
+$ git clone https://github.com/Incognito-Coder/BlumBot-reborn.git
+$ cd BlumBot-reborn
 
 # Linux
 $ python3 -m venv venv
@@ -95,7 +97,7 @@ $ python3 main.py -a (1/2)
 
 ## Running a bot in the background (Linux)
 ```
-$ cd BlumBot
+$ cd BlumBot-reborn
 
 # with logging
 $ setsid venv/bin/python3 main.py --action 2 >> app.log 2>&1 &
