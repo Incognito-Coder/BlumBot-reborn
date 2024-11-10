@@ -2,6 +2,7 @@ import asyncio
 import aiohttp
 import random
 import requests
+import json
 from time import time
 from urllib.parse import unquote
 from typing import Any, Dict
@@ -272,15 +273,31 @@ class CryptoBot:
                         continue
                     if 'socialSubscription' not in task or task.get('socialSubscription', {}).get('openInTelegram', False):
                         continue
-                    log.info(f"{self.session_name} | Processing task {task['id']}")
+                    log.info(f"{self.session_name} | Processing task < {task['title']} >")
                     if task['status'] == 'NOT_STARTED':
                         await self.http_client.post(f"https://earn-domain.blum.codes/api/v1/tasks/{task['id']}/start")
                         await asyncio.sleep(random.randint(4, 8))
                         started += 1
-                    elif task['status'] == 'READY_FOR_CLAIM':
+                    if task['status'] == 'READY_FOR_VERIFY' and task['validationType'] == 'KEYWORD':
+                        codes = requests.get('https://mr-alireza.ir/API/blum.json').json()
+                        for item in codes:
+                            if item['id'] == task['id']:
+                                code = item['key']
+                        result = await self.http_client.post(f"https://earn-domain.blum.codes/api/v1/tasks/{task['id']}/validate", json={"keyword": code})
+                        await asyncio.sleep(1)
+                        if result.status == 200:
+                            log.success(f"{self.session_name} | Task < {task['title']} > verified.")
+                            self.errors = 0
+                            await asyncio.sleep(random.randint(2, 4))
+                            completed += 1
+                        else:
+                            error = await result.json()
+                            self.errors += 1
+                            log.error(f"{self.session_name} | Task error: {error['message']}")
+                    if task['status'] == 'READY_FOR_CLAIM':
                         await self.http_client.post(f"https://earn-domain.blum.codes/api/v1/tasks/{task['id']}/claim")
                         await asyncio.sleep(1)
-                        log.success(f"{self.session_name} | Task {task['id']} completed and reward claimed")
+                        log.success(f"{self.session_name} | Task < {task['title']} > completed and reward claimed")
                         self.errors = 0
                         await asyncio.sleep(random.randint(2, 4))
                         completed += 1
@@ -294,15 +311,31 @@ class CryptoBot:
                             continue
                         if 'socialSubscription' not in task or task.get('socialSubscription', {}).get('openInTelegram', False):
                             continue
-                        log.info(f"{self.session_name} | Processing task {task['id']}")
+                        log.info(f"{self.session_name} | Processing task < {task['title']} >")
                         if task['status'] == 'NOT_STARTED':
                             await self.http_client.post(f"https://earn-domain.blum.codes/api/v1/tasks/{task['id']}/start")
                             await asyncio.sleep(random.randint(4, 8))
                             started += 1
-                        elif task['status'] == 'READY_FOR_CLAIM':
+                        if task['status'] == 'READY_FOR_VERIFY' and task['validationType'] == 'KEYWORD':
+                            codes = requests.get('https://mr-alireza.ir/API/blum.json').json()
+                            for item in codes:
+                                if item['id'] == task['id']:
+                                    code = item['key']
+                            result = await self.http_client.post(f"https://earn-domain.blum.codes/api/v1/tasks/{task['id']}/validate", json={"keyword": code})
+                            await asyncio.sleep(1)
+                            if result.status == 200:
+                                log.success(f"{self.session_name} | Task < {task['title']} > verified.")
+                                self.errors = 0
+                                await asyncio.sleep(random.randint(2, 4))
+                                completed += 1
+                            else:
+                                error = await result.json()
+                                self.errors += 1
+                                log.error(f"{self.session_name} | Task error: {error['message']}")
+                        if task['status'] == 'READY_FOR_CLAIM':
                             await self.http_client.post(f"https://earn-domain.blum.codes/api/v1/tasks/{task['id']}/claim")
                             await asyncio.sleep(1)
-                            log.success(f"{self.session_name} | Task {task['id']} completed and reward claimed")
+                            log.success(f"{self.session_name} | Task < {task['title']} > completed and reward claimed")
                             self.errors = 0
                             await asyncio.sleep(random.randint(2, 4))
                             completed += 1

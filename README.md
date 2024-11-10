@@ -14,6 +14,7 @@
 | Claim daily grant                                              |     ✅     |
 | Claim reward for friends                                       |     ✅     |
 | Claim reward for tasks                                         |     ✅     |
+| Automatic answer youtube tasks                                 |     ✅     |
 | Automatic farming                                              |     ✅     |
 | Automatic games                                                |     ✅     |
 | Docker                                                         |     ✅     |
@@ -69,6 +70,7 @@ $ git clone https://github.com/Incognito-Coder/BlumBot-reborn.git
 $ cd BlumBot-reborn
 
 # Linux
+$ cd BlumPayloadGenerator && bash start.sh && cd ..
 $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip3 install -r requirements.txt
@@ -77,9 +79,15 @@ $ nano .env # specify your API_ID and API_HASH, the rest can be left as default
 $ python3 main.py
 
 # Windows (first, install Python 3.10 or a newer version)
+> # you should run payload server
+> cd BlumPayloadGenerator
+> start /MIN start.bat
+> cd ..
 > python -m venv venv
 > venv\Scripts\activate
 > pip install -r requirements.txt
+> git submodule init
+> git submodule update
 > copy .env-example .env
 > # specify your API_ID and API_HASH, the rest can be left as default
 > python main.py
