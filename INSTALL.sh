@@ -40,7 +40,8 @@ source venv/bin/activate
 
 echo "Installing dependencies..."
 pip install -r requirements.txt
-
+git submodule init
+git submodule update
 echo "Copying .env-example to .env..."
 cp .env-example .env
 

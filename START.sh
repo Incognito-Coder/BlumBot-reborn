@@ -1,5 +1,8 @@
 #!/bin/bash
-
+echo "Starting Custom Server..."
+cd BlumPayloadGenerator
+bash start.sh
+cd ..
 echo "Activating virtual environment..."
 source venv/bin/activate
 
