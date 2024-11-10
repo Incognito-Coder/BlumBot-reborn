@@ -233,9 +233,10 @@ class CryptoBot:
                     log.info(f"{self.session_name} | Game started")
                     await asyncio.sleep(30)
                     points = random.randint(*config.GAME_POINTS)
-                    json_data = requests.post('https://enmobnpmpxkw10.vercel.app/api/blum', json={'game_id': game_id, "points": points, "dogs": False})
+                    json_data = requests.post('http://localhost:3000/getPayload', json={"gameId": game_id, "earnedPoints": {"BP": {"amount": points}}, "assetClicks": {}}).json()
                     await self.http_client.options(finish_url)
-                    response = await self.http_client.post(finish_url, json=json_data.json())
+                    payload = json_data["payload"]
+                    response = await self.http_client.post(finish_url, json={"payload": payload})
                     response.raise_for_status()
                     response_text = await response.text()
                     if response_text == 'OK':

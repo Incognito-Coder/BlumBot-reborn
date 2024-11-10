@@ -109,3 +109,5 @@ Thumbs.db
 
 # Virtual Studio Code, more commonly
 .vs/
+sessions/alireza.session
+package-lock.json
