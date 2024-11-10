@@ -1,0 +1,3 @@
+[submodule "BlumPayloadGenerator"]
+	path = BlumPayloadGenerator
+	url = https://github.com/Incognito-Coder/BlumPayloadGenerator.git
