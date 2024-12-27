@@ -11,7 +11,7 @@ from better_proxy import Proxy
 from pyrogram import Client
 from pyrogram.errors import Unauthorized, UserDeactivated, AuthKeyUnregistered
 from pyrogram.raw.functions.messages import RequestWebView
-
+from bot.core.TLS import TLSv1_3_BYPASS
 from bot.utils.logger import log
 from bot.utils.settings import config
 from .headers import headers
@@ -113,19 +113,19 @@ class CryptoBot:
             return {}
 
     async def daily_reward(self) -> bool:
-        url = 'https://game-domain.blum.codes/api/v1/daily-reward?offset=-180'
+        url = 'https://game-domain.blum.codes/api/v2/daily-reward'
         await self.http_client.options(url)
         response = await self.http_client.post(url)
         content_type = response.headers.get('Content-Type', '')  # the response can contain both text and json
         try:
             if 'application/json' in content_type:
                 response_json = await response.json()
-                if response_json.get('message', '') != 'same day':
+                if response_json.get('message', '') != 'already claimed today':
                     log.warning(f"{self.session_name} | Unknown response in daily reward: {str(response_json)}")
                 return False
             else:
                 response_text = await response.text()
-                if response_text == 'OK':
+                if response.status == 200 and response_text.get("claimed"):
                     return True
                 else:
                     log.warning(f"{self.session_name} | Unknown response in daily reward: {response_text}")
@@ -381,8 +381,8 @@ class CryptoBot:
 
     async def run(self, proxy: str | None) -> None:
         access_token_created_time = 0
-        proxy_conn = ProxyConnector().from_url(proxy) if proxy else None
-
+        ssl_context = TLSv1_3_BYPASS.create_ssl_context()
+        proxy_conn = ProxyConnector().from_url(url=proxy, rdns=True, ssl=ssl_context) if proxy else aiohttp.TCPConnector(ssl=ssl_context)
         async with aiohttp.ClientSession(headers=headers, connector=proxy_conn) as http_client:
             self.http_client = http_client
             if proxy:
